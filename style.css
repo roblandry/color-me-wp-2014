@@ -15,7 +15,7 @@ Tags:				black, blue, brown, gray, green, orange, pink, purple, red, silver, tan
 
 @import url("../twentyfourteen/style.css");
 
-.widget-wrapper, article.post, .comments-wrapper {
+.widget-wrapper, article.post, .comments-wrapper, .archive-header {
 	padding: 10px;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -40,7 +40,7 @@ footer.entry-meta { margin-bottom: 10px !important; }
 pre{background-color:#000; -webkit-border-radius: 10px; -khtml-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; border:0px !important;}
 
 article.post {margin: 0 10px 45px 10px !important}
-.site-content .entry-header, .site-content .entry-content, .site-content .entry-summary, .site-content .entry-meta, .page-content, .comments-area {max-width: 900px}
+.site-content .entry-header, .site-content .entry-content, .site-content .entry-summary, .site-content .entry-meta, .page-content, .comments-area, .archive-header, .page-header {max-width: 900px}
 
 @media screen and (min-width: 810px) {
 .full-width .site-content blockquote.alignleft, .full-width .site-content img.size-full.alignleft, .full-width .site-content img.size-large.alignleft, .full-width .site-content img.size-medium.alignleft, .full-width .site-content .wp-caption.alignleft {
@@ -54,4 +54,4 @@ margin-right: 0;
 .site, .site-header {max-width: 100%;}
 #site-header a img{display:block; margin:auto}
 blockquote, q {quotes: '"' '"';}
-author-description h2 {clear:none}
+#author-description h2 {clear:none}

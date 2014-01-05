@@ -133,7 +133,7 @@ class CMW_Colors {
 
 			/* Custom */
 
-			article.post, .entry-header, .entry-meta, .entry-content, .comments-wrapper	{ background-color:  <?php echo $opt['article_color']; ?> !important}
+			article.post, .entry-header, .entry-meta, .entry-content, .comments-wrapper, .archive-header { background-color:  <?php echo $opt['article_color']; ?> !important}
 			.widget-wrapper{background-color:<?php echo $opt['widget_color']; ?>}
 			table, th, td { border: 1px solid <?php echo $opt['article_bg_color']; ?>; }
 
@@ -231,9 +231,9 @@ class CMW_Colors {
 			/*.widget hr{background-color:rgba(255,255,255,.2)}*/
 			/*.widget input,.widget textarea{background-color:rgba(255,255,255,.1);color:#fff}*/
 			/*.widget input:focus,.widget textarea:focus{border-color:rgba(255,255,255,.3)}*/
-			/*.widget button,.widget input[type=button],.widget input[type=reset],.widget input[type=submit]{background-color:#24890d}*/
+			.widget button,.widget input[type=button],.widget input[type=reset],.widget input[type=submit]{background-color:<?php echo $opt['widget_link_color']; ?>}
 			.widget input[type=button]:focus,.widget input[type=button]:hover,.widget input[type=reset]:focus,
-				.widget input[type=reset]:hover,.widget input[type=submit]:focus,.widget input[type=submit]:hover{background-color: <?php echo $opt['primary_link_hover_color']; ?>}
+				.widget input[type=reset]:hover,.widget input[type=submit]:focus,.widget input[type=submit]:hover{background-color: <?php echo $opt['widget_link_hover_color']; ?>}
 			/*.widget input[type=button]:active,.widget input[type=reset]:active,.widget input[type=submit]:active{background-color:#55d737}*/
 			/*.widget .wp-caption{color:rgba(255,255,255,.7)}*/
 			.widget-title,.widget-title a{color:<?php echo $opt['title_color'];?>}

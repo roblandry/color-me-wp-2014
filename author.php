@@ -17,7 +17,6 @@ get_header(); ?>
 			<?php if ( have_posts() ) : ?>
 
 			<header class="archive-header">
-				<h1 class="archive-title">
 					<?php
 						/*
 						 * Queue the first post, that way we know what author
@@ -30,7 +29,6 @@ get_header(); ?>
 
 						//printf( __( 'All posts by %s', 'twentyfourteen' ), get_the_author() );
 					?>
-				</h1>
 				<div id="author-info">
 					<div id="author-description">
 
