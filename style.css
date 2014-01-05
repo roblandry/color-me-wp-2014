@@ -36,3 +36,22 @@ footer.entry-meta { margin-bottom: 10px !important; }
 /*.site-info a:last-child {display: none;}*/
 .nav-links a[rel="prev"] {float:left; width: 50%}
 .nav-links a[rel="next"] {float:right; width: 50%}
+
+pre{background-color:#000; -webkit-border-radius: 10px; -khtml-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; border:0px !important;}
+
+article.post {margin: 0 10px 45px 10px !important}
+.site-content .entry-header, .site-content .entry-content, .site-content .entry-summary, .site-content .entry-meta, .page-content, .comments-area {max-width: 900px}
+
+@media screen and (min-width: 810px) {
+.full-width .site-content blockquote.alignleft, .full-width .site-content img.size-full.alignleft, .full-width .site-content img.size-large.alignleft, .full-width .site-content img.size-medium.alignleft, .full-width .site-content .wp-caption.alignleft {
+margin-left: 0;
+}
+.full-width .site-content blockquote.alignright, .full-width .site-content img.size-full.alignright, .full-width .site-content img.size-large.alignright, .full-width .site-content img.size-medium.alignright, .full-width .site-content .wp-caption.alignright {
+margin-right: 0;
+}
+}
+
+.site, .site-header {max-width: 100%;}
+#site-header a img{display:block; margin:auto}
+blockquote, q {quotes: '"' '"';}
+author-description h2 {clear:none}

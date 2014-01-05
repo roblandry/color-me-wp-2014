@@ -87,6 +87,7 @@ class CMW2014 {
 
 		add_filter('dynamic_sidebar_params', array( $this, 'widget_before_after'));
 		add_filter( 'the_content', array( $this, 'my_the_content_filter' ), 20 );
+		add_filter('get_avatar',array( $this, 'change_avatar_css') );
 	}
 
 	/**
@@ -392,7 +393,7 @@ class CMW2014 {
 	function widget_before_after($params){
 
 		$before = $params[0]['before_widget'];
-		$params[0]['before_widget'] = $before . '<div class=\'widget_wrapper\'>';
+		$params[0]['before_widget'] = $before . '<div class=\'widget-wrapper\'>';
 		$after = $params[0]['after_widget'];
 		$params[0]['after_widget'] = '</div>' . $after;
 
@@ -413,8 +414,14 @@ function my_the_content_filter( $content ) {
     return $content;
 }
 
+function change_avatar_css($class) {
+$class = str_replace("class='avatar", "class='author_gravatar alignleft", $class) ;
+return $class;
 }
 
+}
+
+	$content_width = 900;
 add_action( 'init', array( 'CMW2014', 'get_instance' ) );
 
 	/**
