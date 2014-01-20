@@ -61,3 +61,6 @@ blockquote, q {quotes: '"' '"';}
 #author-description h2 {clear:none}
 .archive-header{margin: 15px 10px 60px; max-width:100%;margin-right:10px !important}
 #author-description p {word-wrap:break-word;}
+
+/* Infinite Scroll */
+#infscr-loading { text-align: center; }

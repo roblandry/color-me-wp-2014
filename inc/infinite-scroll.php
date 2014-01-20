@@ -49,9 +49,11 @@ class CMW_IScroll {
 	public function __construct() {
 
         add_action( 'admin_init',           array( $this, '_admin_init'			) );
-        add_action( 'wp_head' ,             array( $this, '_wp_head'			) );
 		add_action( 'customize_register',	array( $this, '_customize_register'	) );
-        add_action( 'wp_enqueue_scripts',   array( $this, '_enqueue_scripts'	) );
+		$opt	= get_option( $this->option_key );
+		if (!empty($opt['enable_iscroll']) && $opt['enable_iscroll'] == true) {
+	        add_action( 'wp_enqueue_scripts',   array( $this, '_enqueue_scripts'	) );
+		}
 	}
 
 	/**
@@ -90,18 +92,6 @@ class CMW_IScroll {
 
 	}
 
-	/**
-	 * Enqueues the Admin Scripts.
-	 *
-	 * @access public
-	 *
-	 * @return void
-	 */
-    public function _wp_head() {
-        $opt = get_option( $this->option_key );
-		if (!empty($opt['enable_iscroll']) && $opt['enable_iscroll'] == true)
-			$this->_admin_js();
-    }
 
 	/**
 	 * Implements Color Me WP theme options into Theme Customizer.
@@ -190,60 +180,51 @@ class CMW_IScroll {
 	 */
 	function _enqueue_scripts(){
 		if( ! is_singular() ) {
-			wp_register_script( 
-				'infinite_scroll', 
-				get_stylesheet_directory_uri() . '/js/jquery.infinitescroll.min.js', 
-				array('jquery'),
-				null,
+
+			// Infinite Scroll Options JS
+        	$opt = get_option( $this->option_key );
+			$img		= get_stylesheet_directory_uri().'/images/ajax-loader.gif';
+			$text		= $opt['iscroll_text'];
+			$finished	= $opt['iscroll_finish'];
+			$functions	= $opt['iscroll_functions'];
+			$next		= ".pagination a.next.page-numbers";
+			$nav		= ".navigation.paging-navigation";
+			$content	= "#content";
+			$item		= ".post";
+
+			wp_enqueue_script(
+				$this->theme_slug.'_iscroll_options',
+				get_stylesheet_directory_uri() . '/js/jquery.infinitescroll.cust.js',
+				array('jquery', $this->theme_slug.'_iscroll'),
+				'20140110',
 				true
 			);
-			wp_enqueue_script('infinite_scroll');
+			wp_localize_script(
+				$this->theme_slug.'_iscroll_options',
+				$this->theme_slug.'_iscroll_vars',
+				array(
+					'image'		=> "$img",
+					'text'		=> sprintf(__('%s', 'cmw_2014'), $text),
+					'finished'	=> sprintf(__('%s', 'cmw_2014'), $finished),
+					'functions'	=> "$functions",
+					'next'		=> "$next",
+					'nav'		=> "$nav",
+					'content'	=> "$content",
+					'item'		=> "$item"
+				)
+			);
+
+			// Main Infinite Scroll JS
+			wp_register_script( 
+				$this->theme_slug.'_iscroll', 
+				get_stylesheet_directory_uri() . '/js/jquery.infinitescroll.min.js', 
+				array('jquery'),
+				20140110,
+				true
+			);
+			wp_enqueue_script($this->theme_slug.'_iscroll');
 		}
 	}
 
-	/**
-	 * The infinite scroll js.
-	 *
-	 * @since Color Me WP 1.0
-	 * @access public
-	 *
-	 * @return void
-	 */
-	function _admin_js() {
-
-		if( ! is_singular() ) { 
-			$options = get_option( $this->option_key );
-			$i_s_img = get_stylesheet_directory_uri().'/images/ajax-loader.gif';
-			$i_s_msgText = $options['iscroll_text'];
-			$i_s_finishedMsg = $options['iscroll_finish'];
-			$i_s_functions = $options['iscroll_functions']; ?>
-				<script type="text/javascript">
-					function infinite_scroll_callback(newElements,data){<?php echo $i_s_functions; ?>}
-					jQuery(document).ready(function($){
-						$("#content").infinitescroll({
-							debug:false,
-							loading:{
-								img:"<?php echo $i_s_img; ?>",
-								msgText:"<?php echo $i_s_msgText; ?>",
-								finishedMsg:"<?php echo $i_s_finishedMsg; ?>"
-							},
-							state:{currPage:"1"},
-							behavior:"undefined",
-							nextSelector:".pagination a.next.page-numbers",
-							navSelector:".navigation.paging-navigation",
-							contentSelector:"#content",
-							itemSelector:".post"
-						},
-						function(newElements,data){
-							window.setTimeout(
-								function(){infinite_scroll_callback(newElements,data)}
-								,1
-							);
-						});
-					});
-				</script>
-				<style>#infscr-loading { text-align: center; }</style><?php
-		}
-	}
 }
 $_iscroll = new CMW_IScroll();

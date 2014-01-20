@@ -345,15 +345,6 @@ class CMW2014 {
 	 * 
 	 */
 	function _enqueue_styles()  { 
-		// Register the style like this for a theme:  
-		// (First the unique name for the style (custom-style) then the src, 
-		// then dependencies and ver no. and media type)
-		/*wp_register_style( 'color-me-wp-style', 
-			get_stylesheet_directory_uri() . '/css/display.css.php', 
-			array('twentytwelve-style'), 
-			'20120208', 
-			'all' );
-		wp_enqueue_style( 'color-me-wp-style' );*/
 
 		$plugin = 'subscribe2/subscribe2.php';
 		$active_plugins = get_option( 'active_plugins' );
@@ -401,23 +392,23 @@ class CMW2014 {
 	}
 
 
-/**
- * Add a icon to the beginning of every post page.
- *
- * @uses is_single()
- */
-function my_the_content_filter( $content ) {
+	/**
+	 * Add a icon to the beginning of every post page.
+	 *
+	 * @uses is_single()
+	 */
+	function my_the_content_filter( $content ) {
 
-	$content = str_replace('Proudly powered by WordPress', '', $content);
+		$content = str_replace('Proudly powered by WordPress', '', $content);
 
-    // Returns the content.
-    return $content;
-}
+	    // Returns the content.
+	    return $content;
+	}
 
-function change_avatar_css($class) {
-$class = str_replace("class='avatar", "class='author_gravatar alignleft", $class) ;
-return $class;
-}
+	function change_avatar_css($class) {
+		$class = str_replace("class='avatar", "class='author_gravatar alignleft", $class) ;
+		return $class;
+	}
 
 }
 

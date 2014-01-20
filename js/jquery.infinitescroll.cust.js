@@ -1,0 +1,23 @@
+function infinite_scroll_callback(newElements,data){cmw_2014_iscroll_vars.functions}
+jQuery(document).ready(function($){
+	$("#content").infinitescroll({
+		debug:false,
+		loading:{
+			img:cmw_2014_iscroll_vars.img,
+			msgText:cmw_2014_iscroll_vars.msg,
+			finishedMsg:cmw_2014_iscroll_vars.finished
+		},
+		state:{currPage:"1"},
+		behavior:"undefined",
+		nextSelector:cmw_2014_iscroll_vars.next,
+		navSelector:cmw_2014_iscroll_vars.nav,
+		contentSelector:cmw_2014_iscroll_vars.content,
+		itemSelector:cmw_2014_iscroll_vars.item
+	},
+	function(newElements,data){
+		window.setTimeout(
+			function(){infinite_scroll_callback(newElements,data)}
+			,1
+		);
+	});
+});

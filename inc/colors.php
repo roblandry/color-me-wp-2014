@@ -280,9 +280,10 @@ class CMW_Colors {
 			/*.slider-control-paging{background-color:#000}*/
 			/*.slider-control-paging a:before{background-color:#4d4d4d}*/
 			.slider-control-paging a:hover:before{background-color: <?php echo $opt['primary_link_hover_color']; ?>}
-			/*.slider-control-paging .slider-active:before,.slider-control-paging .slider-active:hover:before{background-color:#24890d}*/
-			/*.slider-direction-nav a{background-color:#000}*/
-			/*.slider-direction-nav a:hover{background-color:#24890d}*/
+			.slider-control-paging .slider-active:before,.slider-control-paging .slider-active:hover:before{
+				background-color:<?php echo $opt['primary_link_hover_color']; ?>}
+			.slider-direction-nav a{background-color:<?php echo $opt['primary_link_color']; ?>}
+			.slider-direction-nav a:hover{background-color:<?php echo $opt['primary_link_hover_color']; ?>}
 			/*.slider-direction-nav a:before{color:#fff}*/
 			@media screen and (min-width:783px){
 				.site-navigation li .current-menu-ancestor>a,.site-navigation li .current-menu-item>a,
@@ -298,9 +299,11 @@ class CMW_Colors {
 			@media screen and (min-width:1008px){
 				.site:before{background-color:<?php echo $opt['widget_bg_color']; ?>}
 				#secondary{background-color:<?php echo $opt['widget_bg_color']; ?>}
-				/*.secondary-navigation ul ul{background-color:#24890d}*/
-				/*.secondary-navigation li.focus>a,.secondary-navigation li:hover>a{background-color:#24890d;color:#fff}*/
-				.secondary-navigation ul ul a:hover,.secondary-navigation ul ul li.focus>a{background-color: <?php echo $opt['primary_link_hover_color']; ?>}
+				.secondary-navigation ul ul{background-color:<?php echo $opt['widget_link_color']; ?>}
+                .secondary-navigation li.focus>a,.secondary-navigation li:hover>a{
+					background-color:<?php echo $opt['widget_link_hover_color']; ?>;color:#fff}
+				.secondary-navigation ul ul a:hover,.secondary-navigation ul ul li.focus>a{
+					background-color: <?php echo $opt['primary_link_hover_color']; ?>}
 			}
 			@media print{
 				.entry-meta,.entry-meta a,.featured-content .hentry,.featured-content a,.site-title a,body{color: <?php echo $opt['primary_link_color']; ?>}*/
