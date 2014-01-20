@@ -55,11 +55,12 @@ class Color_Me_WP_2014_Options {
 	 */
 	public function __construct() {
 
-		require( get_stylesheet_directory() . '/inc/infinite-scroll.php' );
-		require( get_stylesheet_directory() . '/inc/web-fonts.php' );
+		require( get_stylesheet_directory() . '/inc/chat.php' );
 		require( get_stylesheet_directory() . '/inc/colors.php' );
 		require( get_stylesheet_directory() . '/inc/feedback.php' );
-
+		require( get_stylesheet_directory() . '/inc/infinite-scroll.php' );
+		require( get_stylesheet_directory() . '/inc/subscribe2.php' );
+		require( get_stylesheet_directory() . '/inc/web-fonts.php' );
 		add_action( 'customize_register',	array( $this, 'customize_register'  ) );
 
 	}

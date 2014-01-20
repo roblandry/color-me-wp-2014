@@ -20,9 +20,6 @@
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
- * @TODO Rename class
- */
 class CMW2014 {
 	/**
 	 * Theme version, used for cache-busting of style and script file references.
@@ -69,25 +66,19 @@ class CMW2014 {
 		$_options = new Color_Me_WP_2014_Options();
 
 		// Load plugin text domain
-		add_action( 'init', array( $this, 'load_theme_textdomain' ) );
+		add_action( 'init',						array( $this, 'load_theme_textdomain'	) );
 
-		add_action( 'admin_init', 			array( $this, '_options_init' ));
-		//add_action( 'admin_menu', 		array( $this, '_options_add_page' )); 
-		add_action( 'twentyfourteen_credits', array( $this, '_credits' ));
-		//add_action( 'after_setup_theme', 	array( $this, '_setup' ));
-		add_action( 'wp_head', 				array( $this, '_wp_head' ));
-		add_filter( 'the_content', 			array( $this, '_chat_post' ), 9 );
-
-		add_action( 'wp_enqueue_scripts',	array( $this, '_dequeue_fonts' ), 11 );
-		add_action( 'wp_enqueue_scripts', 	array( $this, '_enqueue_styles' ));
-		//add_action( 'wp_enqueue_scripts', array( $this, '_chat_js' )); // Add js scripts
-		add_action( 'wp_enqueue_scripts', 	array( $this, '_chat_css' )); // Add css stylesheet
-		add_action( 'wp_enqueue_scripts', 	array( $this, '_enqueue_fonts' ));
-
-
-		add_filter('dynamic_sidebar_params', array( $this, 'widget_before_after'));
-		add_filter( 'the_content', array( $this, 'my_the_content_filter' ), 20 );
-		add_filter('get_avatar',array( $this, 'change_avatar_css') );
+		add_action( 'admin_init',				array( $this, '_admin_init' 			) );
+		//#add_action( 'admin_menu',				array( $this, '_admin_menu' 			) ); 
+		add_action( 'twentyfourteen_credits',	array( $this, '_credits'				) );
+		//#add_action( 'after_setup_theme',		array( $this, '_after_setup_theme' 		) );
+		add_action( 'wp_head',					array( $this, '_wp_head' 				) );
+		//#add_action( 'wp_enqueue_scripts',		array( $this, '_dequeue_fonts' 			), 11 );
+		add_action( 'wp_enqueue_scripts',		array( $this, '_enqueue_scripts' 		) );
+		add_action( 'wp_enqueue_scripts',		array( $this, '_enqueue_styles' 		) );
+		add_filter( 'dynamic_sidebar_params',	array( $this, 'widget_before_after'		) );
+		add_filter( 'the_content',				array( $this, '_the_content' 			), 20 );
+		add_filter( 'get_avatar',				array( $this, '_get_avatar'				) );
 	}
 
 	/**
@@ -119,13 +110,27 @@ class CMW2014 {
 	}
 
 	/**
+	 * Load the plugin text domain for translation.
+	 *
+	 * @since    1.0.0
+	 */
+	public function load_theme_textdomain() {
+
+		$domain = $this->theme_slug;
+		$locale = apply_filters( 'theme_locale', get_locale(), $domain );
+
+		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
+
+	}
+
+	/**
 	 * Options Init
 	 *
 	 * Since: 0.1.0
 	 *
 	 * A function to add support for all post formats.
 	 */
-	function _options_init(){
+	function _admin_init(){
 		add_theme_support( 'post-formats', array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat' ) );
 	} 
 
@@ -136,7 +141,7 @@ class CMW2014 {
 	 *
 	 * A function to add the theme options page
 	 */
-	function _options_add_page() {
+	function _admin_menu() {
 		$page = add_theme_page( 
 			__( 'Theme Options', 'cmw_theme' ), 
 			__( 'Theme Options', 'cmw_theme' ), 
@@ -160,24 +165,10 @@ class CMW2014 {
 		echo "<div class=copyright>Copyright &copy; <a href='".site_url()."'>$bloginfo</a> $previousyear - $year</div>";
 	}
 
-	/**
-	 * Load the plugin text domain for translation.
-	 *
-	 * @since    1.0.0
-	 */
-	public function load_theme_textdomain() {
-
-		$domain = $this->theme_slug;
-		$locale = apply_filters( 'theme_locale', get_locale(), $domain );
-
-		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
-
-	}
-
 	/*
 	 * @since Twenty Twelve 1.0
 	 */
-	//function _setup() {
+	//function _after_setup_theme() {
 		//global $color_me_wp_options;
 
 	 	/*
@@ -200,133 +191,9 @@ class CMW2014 {
 	 */
 	function _wp_head() {
 		echo '<!DOCTYPE html>';
-	        $hashedEmail = md5(strtolower(trim(get_option('admin_email'))));
-	        $icon = 'http://www.gravatar.com/avatar/' . $hashedEmail . '?s=16';
-	        echo "<link rel='shortcut icon' href='$icon' />";
-
-//$(document).ready(function(){
-	        echo "<script>
-			jQuery(document).ready(function($){
-	        
-	            $(\"address\").each(function(){                         
-	                var embed =\"<iframe width='425' height='350' frameborder='0' scrolling='no'  marginheight='0' marginwidth='0'   src='https://maps.google.com/maps?&amp;q=\"+ encodeURIComponent( $(this).text() ) +\"&amp;output=embed'></iframe>\";
-	                $(this).html(embed);
-	            });
-	        });
-	        </script>";
-
-	        //include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-	        $plugin = 'subscribe2/subscribe2.php';
-	        $active_plugins = get_option( 'active_plugins' );
-	        if (in_array($plugin,$active_plugins)) {
-	        global $wpdb;
-	        $sub_to_opts = get_option("subscribe2_options");
-	        $s2page = get_site_url().'?page_id='.$sub_to_opts['s2page'];
-	        $get_var = $wpdb->get_var("SELECT COUNT(id) FROM wp_subscribe2 WHERE active='1'");
-
-	        echo "    
-	            <div id=\"bit\" class=\"\">
-	                <a class=\"bsub\" href=\"javascript:void(0)\"><span id='bsub-text'>Follow</span></a>
-	                <div id=\"bitsubscribe\">
-	                    <h3><label for=\"loggedout-follow-field\">Follow &ldquo;".get_bloginfo('name')."&rdquo;</label></h3>
-	                    <form action=". $s2page ." method=\"post\" accept-charset=\"utf-8\" id=\"loggedout-follow\">
-	                        <p>Get every new post on this blog delivered to your Inbox.</p>
-	                        <p class='bit-follow-count'>Join $get_var other followers:</p>
-	                        <p>
-	                            <input type=\"text\" name=\"email\" id=\"s2email\" 
-	                                style=\"width: 95%; padding: 1px 2px\" value=\"Enter email address\" 
-	                                onfocus='this.value=(this.value==\"Enter email address\") ? \"\" : this.value;' onblur='this.value=(this.value==\"\") ? \"Enter email address\" : this.value;'  id=\"loggedout-follow-field\"/>
-	                        </p>
-	                        <input type=\"hidden\" name=\"ip\" value=".$_SERVER['REMOTE_ADDR'].">
-	                        <p id='bsub-subscribe-button'>
-	                            <input type=\"submit\" name=\"subscribe\"  value=\"Sign me up!\" />
-	                        </p>
-	                    </form>
-	                </div>
-	            </div>";
-	        }
-	}
-
-	/**
-	 * Chat Posts
-	 *
-	 * Since: 
-	 *
-	 * A function to add post formats to class
-	 */
-	function _chat_post($content) {
-		global $post;
-
-		static $instance = 0;
-		$instance++;
-
-		if ( has_post_format('chat') ){//&& is_singular() ) {
-			remove_filter ('the_content',  'wpautop');
-			$chatoutput = '';
-			$split = preg_split("/(\r?\n)+|(<br\s*\/?>\s*)+/", $content);
-			$speakers = array();
-			$row_class_ov = 'odd';
-			foreach($split as $haystack) {
-				if (strpos($haystack, ':')) {
-					$string = explode(':', trim($haystack), 2);
-					$who = strip_tags(trim($string[0]));
-					if ( !in_array( $who, $speakers ) ) {
-						$speakers[] = $who;
-						$speaker_key = count( $speakers );
-					} else {
-						$speaker_key = array_search( $who, $speakers ) + 1;
-					}
-					$what = strip_tags(trim($string[1]));
-					$row_class_ov = ( $row_class_ov == 'even' )? 'odd' : 'even';
-					$row_class = $row_class_ov . ' speaker-' . $speaker_key;
-					$chatoutput = $chatoutput . "<p class=\"$row_class triangle-obtuse left\"><span class=\"name\">$who:</span><span class=\"text\">$what</span></p>";
-				} else {
-					// the string didn't contain a needle. Displaying anyway in case theres anything additional you want to add within the transcript
-					$chatoutput = $chatoutput . '<li class="aside-text">' . $haystack . '</li>';
-				}
-			}
-			$speakers_select = '';
-			foreach ($speakers as $key => $speaker) {
-				$key = $key + 1;
-				$speakers_select = $speakers_select . "<p class=\"speaker-$key\"><span class=\"name\">$speaker</span><span class=\"hide\">[-]</span><span class=\"show\">[+]</span><span class=\"toleft\">[&lt;]</span><span class=\"toright\">[&gt;]</span></p> ";
-			}
-			$speakers_select = '';//<ul class="chat-select">' . $speakers_select . '</ul>';
-			$chat_before = '<div class="chat-transcript' . ' speakers-' . count( $speakers ) . '">';
-			$chat_after = '</div>';
-			// print our new formated chat post
-			$content = '<div id="chat-' . $instance . '" class="tb-chat">' . $speakers_select . $chat_before . $chatoutput . $chat_after . '</div>';
-			return $content;
-		} else {
-			add_filter ('the_content',  'wpautop');
-			return $content;
-		}
-	}
-
-	/**
-	 * add scripts
-	 */
-	function _chat_js(){
-		global $tb_chat_animation, $tb_chat_load_script;
-		$theme_dir = dirname( get_bloginfo('stylesheet_url') );
-		//if ( !$tb_chat_load_script ) return;
-
-		wp_enqueue_script( 'tb-chat-script', $theme_dir.'/js/chat.js', array('jquery'), '', true );
-
-		$data = array(
-			'animation' => in_array( $tb_chat_animation, array('slide','fade','none') ) ? $tb_chat_animation : 'none'
-		);
-		wp_localize_script( 'tb-chat-script', 'tbChat_l10n', $data );
-	}
-
-	/**
-	 * add style
-	 */
-	function _chat_css() {
-		global $tb_chat_load_style;
-		$theme_dir = dirname( get_bloginfo('stylesheet_url') );
-		//if ( !$tb_chat_load_style ) return;
-
-		wp_enqueue_style( 'chat_css', $theme_dir.'/css/bubbles.css', false, '', 'screen' );
+        $hashedEmail = md5(strtolower(trim(get_option('admin_email'))));
+        $icon = 'http://www.gravatar.com/avatar/' . $hashedEmail . '?s=16';
+        echo "<link rel='shortcut icon' href='$icon' />";
 	}
 
 	/**
@@ -342,28 +209,19 @@ class CMW2014 {
 	}
 
 	/**
-	 * 
+	 * Enqueue Google Map JS
+	 *
+	 * @since 	1.0
+	 *
+	 * @access	public
 	 */
-	function _enqueue_styles()  { 
-
-		$plugin = 'subscribe2/subscribe2.php';
-		$active_plugins = get_option( 'active_plugins' );
-		if (in_array($plugin,$active_plugins)) {
-			//if (is_plugin_active('subscribe2/subscribe2.php')) {
-			wp_register_style( 'color-me-wp-s2-style', 
-				get_stylesheet_directory_uri() . '/css/subscribe2.css', 
-				array(), 
-				'20130225', 
-				'all' );
-			wp_enqueue_style( 'color-me-wp-s2-style' );
-
-			wp_register_script( 'color-me-wp-s2-script', 
-				get_stylesheet_directory_uri() . '/js/subscribe2.js', 
-				array('jquery'), 
-				'20130225',
-				true );
-			wp_enqueue_script( 'color-me-wp-s2-script' );
-		}
+	function _enqueue_scripts() {
+		wp_register_script( 'cmw_2014-maps-script', 
+			get_stylesheet_directory_uri() . '/js/maps.js', 
+			array('jquery'), 
+			'20140120',
+			true );
+		wp_enqueue_script( 'cmw_2014-maps_script' );
 	}
 
 	/**
@@ -373,7 +231,7 @@ class CMW2014 {
 	 *
 	 * @access	public
 	 */
-	function _enqueue_fonts() {
+	function _enqueue_styles() {
 		$options = get_option( $this->theme_slug . '_options' );
 		$font = (isset($options['gwf_font_body'])) ? $options['gwf_font_body'] : 'none' ;
 		if ($font != 'none')
@@ -397,7 +255,7 @@ class CMW2014 {
 	 *
 	 * @uses is_single()
 	 */
-	function my_the_content_filter( $content ) {
+	function _the_content( $content ) {
 
 		$content = str_replace('Proudly powered by WordPress', '', $content);
 
@@ -405,14 +263,14 @@ class CMW2014 {
 	    return $content;
 	}
 
-	function change_avatar_css($class) {
+	function _get_avatar($class) {
 		$class = str_replace("class='avatar", "class='author_gravatar alignleft", $class) ;
 		return $class;
 	}
 
 }
 
-	$content_width = 900;
+$content_width = 900;
 add_action( 'init', array( 'CMW2014', 'get_instance' ) );
 
 	/**
