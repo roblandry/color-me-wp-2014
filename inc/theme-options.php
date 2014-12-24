@@ -54,145 +54,21 @@ class Color_Me_WP_2014_Options {
 	 * @return Color_Me_WP_Options
 	 */
 	public function __construct() {
-
-		require( get_stylesheet_directory() . '/inc/chat.php' );
-		require( get_stylesheet_directory() . '/inc/colors.php' );
-		require( get_stylesheet_directory() . '/inc/feedback.php' );
-		require( get_stylesheet_directory() . '/inc/infinite-scroll.php' );
-		require( get_stylesheet_directory() . '/inc/subscribe2.php' );
-		require( get_stylesheet_directory() . '/inc/web-fonts.php' );
-		add_action( 'customize_register',	array( $this, 'customize_register'  ) );
-
-	}
-
-
-
-	/**
-	 * Implements Color Me WP theme options into Theme Customizer.
-	 *
-	 * @since Color Me WP 1.0
-	 * @access public
-	 * @param WP_Customize_Manager $wp_customize Theme Customizer object.
-	 *
-	 * @return void
-	 */
-
-	public function customize_register( $wp_customize ) {
-
-		/**
-		 * Donate Button
-		 */
-		$wp_customize->add_section( $this->option_key . '_donate', array(
-			'title'    => __( 'Donate', 'color-me-wp' ),
-			'priority' => 200,
-		) );
-
-		$wp_customize->add_setting( $this->option_key . '[donate]', array(
-			'default'    => '',
-			'type'       => 'donate',
-		) );
-
-		$wp_customize->add_control( new CMW_Donate_Control(
-			$wp_customize, $this->option_key . '_donate', array(
-			'label'    => __( 'Donate', 'color-me-wp' ),
-			'section'  => $this->option_key . '_donate',
-			'settings' => $this->option_key . '[donate]',
-			)));
-
-		/**
-		 * RSS
-		 */
-		$wp_customize->add_section( $this->option_key . '_rss', array(
-			'title'    => __( 'Theme News', 'color-me-wp' ),
-			'priority' => 1,
-		) );
-
-		$wp_customize->add_setting( $this->option_key . '[rss]', array(
-			'default'    => '',
-			'type'       => 'rss',
-		) );
-
-		$wp_customize->add_control( new CMW_RSS_Control(
-			$wp_customize, $this->option_key . '_rss', array(
-			'label'    => __( 'News', 'color-me-wp' ),
-			'section'  => $this->option_key . '_rss',
-			'settings' => $this->option_key . '[rss]',
-			)));
+echo " ".microtime(true)." ";
+		//require( get_stylesheet_directory() . '/inc/chat.php' 			);
+echo " ".microtime(true)." ";
+		require( get_stylesheet_directory() . '/inc/colors.php'			);
+echo " ".microtime(true)." ";
+		//require( get_stylesheet_directory() . '/inc/custom-controls.php');
+echo " ".microtime(true)." ";
+		require( get_stylesheet_directory() . '/inc/feedback.php'		);
+echo " ".microtime(true)." ";
+		//require( get_stylesheet_directory() . '/inc/infinite-scroll.php');
+echo " ".microtime(true)." ";
+		require( get_stylesheet_directory() . '/inc/subscribe2.php'		);
+echo " ".microtime(true)." ";
+		//require( get_stylesheet_directory() . '/inc/web-fonts.php'		);
 
 	}
 
 } # End Class
-
-
-require_once(ABSPATH.'/wp-includes/class-wp-customize-control.php');
-
-class CMW_Select_Control extends WP_Customize_Control {
-	
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $type = 'cmw_select';
-
-	public function render_content() {
-		if ( empty( $this->choices ) )
-			return;
-
-		?>
-		<label>
-            <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-            <select <?php $this->link(); ?>>
-                <?php
-                foreach ( $this->choices as $value => $label )
-                    echo '<option style="font-family: ' . $label . ' " class="'.esc_attr( $value ).'" value="' . esc_attr( $value ) . '"' . selected( $this->value(), $value, false ) . '>' . $label . '</option>';
-                ?>
-            </select>
-        </label><?php
-    }
-}
-
-class CMW_Donate_Control extends WP_Customize_Control {
-	public $type = 'donate';
-	public function render_content() { ?>
-		<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DNWX23LBQJ5KE" target='_blank'><img src='<?php echo get_stylesheet_directory_uri().'/images/donate.gif'; ?>'></a>
-		<?php
-	}
-}
-
-
-class CMW_RSS_Control extends WP_Customize_Control {
-	public $type = 'donate';
-	public function render_content() { ?>
-		<table class=widefat cellspacing=5 >
-			<thead><tr><th valign=top ><?php _e( 'News', 'color-me-wp' ); ?></th></tr></thead>
-			<?php 
-			$rss = fetch_feed('http://redmine.landry.me/projects/color-me-wp/news.atom');
-			$out = '';
-			if (!is_wp_error( $rss ) ) {
-				$maxitems = $rss->get_item_quantity(50);     
-				$rss_items = $rss->get_items(0, $maxitems);  
-
-				if ($maxitems == 0) {
-					$out = "<tr><td>Nothing to see here.</td></tr>";     
-				} else {     
-
-					foreach ( $rss_items as $item ) {
-
-						$title = $item->get_title();
-						$content = $item->get_content();
-						$description = $item->get_description();
-						$author = $item->get_author();
-						$author = $author->get_name();
-
-						$out .= "<tr><td>";
-						$out .= "<a target='_BLANK' href='". $item->get_permalink() ."'  title='Posted ". $item->get_date('j F Y | g:i a') ."'>";
-				       		$out .= "$title</a> $description";
-						$out .= "</td></tr>";
-					} 
-				}
-			} else {$out = "<tr><td>Nothing to see here.</td></tr>";}
-			echo $out; ?>
-			<tfoot><tr><th></th></tr></tfoot>
-		</table> <?php
-	}  
-}

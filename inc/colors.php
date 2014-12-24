@@ -306,7 +306,7 @@ class CMW_Colors {
 					background-color: <?php echo $opt['primary_link_hover_color']; ?>}
 			}
 			@media print{
-				.entry-meta,.entry-meta a,.featured-content .hentry,.featured-content a,.site-title a,body{color: <?php echo $opt['primary_link_color']; ?>}*/
+				.entry-meta,.entry-meta a,.featured-content .hentry,.featured-content a,.site-title a,body{color: <?php echo $opt['primary_link_color']; ?>}
 				/*.entry-meta .tag-links a{color:#fff}*/
 			}
 		</style> 

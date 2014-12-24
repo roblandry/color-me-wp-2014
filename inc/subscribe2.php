@@ -14,7 +14,7 @@
  *  
  */
 
-class CMW_subscribe2 {
+class CMW_Subscribe2 {
 
 	/**
 	 * Unique identifier for your plugin.
@@ -125,3 +125,4 @@ class CMW_subscribe2 {
 		wp_enqueue_style( 'cmw_2014-s2-style' );
 	}
 }
+$_Subscribe2 = new CMW_Subscribe2();

@@ -61,13 +61,17 @@ class CMW2014 {
 	 */
 	private function __construct() {
 
-		// Load up our theme options page and related code.
-		require( get_stylesheet_directory() . '/inc/theme-options.php' );
-		$_options = new Color_Me_WP_2014_Options();
+		// Load up our theme options.
+		require( get_stylesheet_directory() . '/inc/chat.php' 			);
+		require( get_stylesheet_directory() . '/inc/colors.php'			);
+		require( get_stylesheet_directory() . '/inc/custom-controls.php');
+		require( get_stylesheet_directory() . '/inc/feedback.php'		);
+		require( get_stylesheet_directory() . '/inc/infinite-scroll.php');
+		require( get_stylesheet_directory() . '/inc/subscribe2.php'		);
+		require( get_stylesheet_directory() . '/inc/web-fonts.php'		);
 
 		// Load plugin text domain
 		add_action( 'init',						array( $this, 'load_theme_textdomain'	) );
-
 		add_action( 'admin_init',				array( $this, '_admin_init' 			) );
 		//#add_action( 'admin_menu',				array( $this, '_admin_menu' 			) ); 
 		add_action( 'twentyfourteen_credits',	array( $this, '_credits'				) );
@@ -79,6 +83,7 @@ class CMW2014 {
 		add_filter( 'dynamic_sidebar_params',	array( $this, 'widget_before_after'		) );
 		add_filter( 'the_content',				array( $this, '_the_content' 			), 20 );
 		add_filter( 'get_avatar',				array( $this, '_get_avatar'				) );
+
 	}
 
 	/**
@@ -133,23 +138,6 @@ class CMW2014 {
 	function _admin_init(){
 		add_theme_support( 'post-formats', array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat' ) );
 	} 
-
-	/**
-	 * Theme Options add page
-	 *
-	 * Since: 0.1.0
-	 *
-	 * A function to add the theme options page
-	 */
-	function _admin_menu() {
-		$page = add_theme_page( 
-			__( 'Theme Options', 'cmw_theme' ), 
-			__( 'Theme Options', 'cmw_theme' ), 
-			'edit_theme_options', 
-			'theme-options', 
-			'cmw_options_do_page' );
-		add_action( 'admin_print_styles-' . $page, 'cmw_admin_scripts' );
-	}
 
 	/**
 	 * Twenty Twelve Credits
@@ -234,8 +222,9 @@ class CMW2014 {
 	function _enqueue_styles() {
 		$options = get_option( $this->theme_slug . '_options' );
 		$font = (isset($options['gwf_font_body'])) ? $options['gwf_font_body'] : 'none' ;
+		$g_font = 'http://fonts.googleapis.com/css?family='.$font;
 		if ($font != 'none')
-			wp_enqueue_style( 'gwf_'.$font, 'http://fonts.googleapis.com/css?family='.$font, '', '3.0' );
+			wp_enqueue_style( 'gwf_'.$font, $g_font, '', '3.0' );
 	}
 
 
@@ -325,4 +314,3 @@ add_action( 'init', array( 'CMW2014', 'get_instance' ) );
 			$author
 		);
 	}
-

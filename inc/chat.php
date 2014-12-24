@@ -14,7 +14,7 @@
  *  
  */
 
-class CMW_chat {
+class CMW_Chat {
 
 	/**
 	 * Unique identifier for your plugin.
@@ -146,3 +146,4 @@ class CMW_chat {
 	}
 
 }
+$_chat = new CMW_Chat();
