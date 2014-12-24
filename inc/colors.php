@@ -133,7 +133,7 @@ class CMW_Colors {
 
 			/* Custom */
 
-			article.post, .entry-header, .entry-meta, .entry-content, .comments-wrapper, .archive-header { background-color:  <?php echo $opt['article_color']; ?> !important}
+			article.post, article.page, .entry-header, .entry-meta, .entry-content, .comments-wrapper, .archive-header { background-color:  <?php echo $opt['article_color']; ?> !important}
 			.widget-wrapper{background-color:<?php echo $opt['widget_color']; ?>}
 			table, th, td { border: 1px solid <?php echo $opt['article_bg_color']; ?>; }
 
@@ -306,7 +306,7 @@ class CMW_Colors {
 					background-color: <?php echo $opt['primary_link_hover_color']; ?>}
 			}
 			@media print{
-				.entry-meta,.entry-meta a,.featured-content .hentry,.featured-content a,.site-title a,body{color: <?php echo $opt['primary_link_color']; ?>}
+				.entry-meta,.entry-meta a,.featured-content .hentry,.featured-content a,.site-title a,body{color: <?php echo $opt['primary_link_color']; ?>}*/
 				/*.entry-meta .tag-links a{color:#fff}*/
 			}
 		</style> 

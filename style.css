@@ -1,16 +1,15 @@
 /*
-Theme Name:			Color Me WP 2014
-Theme URI:			http://www.landry.me/extend/themes/color-me-wp-2014
-Description:		Child theme for the TwentyFourteen theme. This theme uses theme customizer to customize the site color scheme. Genericons, Infinite scroll, and 
-Google web fonts are included.
-Author:				Rob Landry <rob@landry.me>
-Author URI:			http://www.landry.me/
-Template:			twentyfourteen
+Theme Name:		Color Me WP 2014
+Theme URI:		http://www.landry.me/extend/themes/color-me-wp-2014
+Description:		Child theme for the TwentyFourteen theme. This theme uses theme customizer to customize the site color scheme. Genericons, Infinite scroll, and Google web fonts are included.
+Author:			Rob Landry <rob@landry.me>
+Author URI:		http://www.landry.me/
+Template:		twentyfourteen
 Template Version:	1.0
-Version:			1.0
-License:			GNU General Public License v2 or later
+Version:		1.1
+License:		GNU General Public License v2 or later
 License URI:		http://www.gnu.org/licenses/gpl-2.0.html
-Tags:				black, blue, brown, gray, green, orange, pink, purple, red, silver, tan, white, yellow, dark, light, one-column, two-columns, right-sidebar, responsive-layout, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, flexible-header, full-width-template, microformats, post-formats, sticky-post, theme-options, rtl-language-support, translation-ready
+Tags:			black, blue, brown, gray, green, orange, pink, purple, red, silver, tan, white, yellow, dark, light, one-column, two-columns, right-sidebar, responsive-layout, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, flexible-header, full-width-template, microformats, post-formats, sticky-post, theme-options, rtl-language-support, translation-ready
 */
 
 @import url("../twentyfourteen/style.css");

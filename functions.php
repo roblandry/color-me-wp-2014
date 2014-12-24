@@ -28,7 +28,7 @@ class CMW2014 {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.1.0';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -61,28 +61,52 @@ class CMW2014 {
 	 */
 	private function __construct() {
 
+		$stopwatch = new StopWatch(); 
+
 		// Load up our theme options.
-		require( get_stylesheet_directory() . '/inc/chat.php' 			);
+		//require( get_stylesheet_directory() . '/inc/chat.php' 		);
+		$script[] = $stopwatch->clock();
 		require( get_stylesheet_directory() . '/inc/colors.php'			);
-		require( get_stylesheet_directory() . '/inc/custom-controls.php');
+		$script[] = $stopwatch->clock();
+		//require( get_stylesheet_directory() . '/inc/custom-controls.php'	);
+		$script[] = $stopwatch->clock();
 		require( get_stylesheet_directory() . '/inc/feedback.php'		);
-		require( get_stylesheet_directory() . '/inc/infinite-scroll.php');
+		$script[] = $stopwatch->clock();
+		//require( get_stylesheet_directory() . '/inc/infinite-scroll.php'	);
+		$script[] = $stopwatch->clock();
 		require( get_stylesheet_directory() . '/inc/subscribe2.php'		);
-		require( get_stylesheet_directory() . '/inc/web-fonts.php'		);
+		$script[] = $stopwatch->clock();
+		//require( get_stylesheet_directory() . '/inc/web-fonts.php'		);
+		$script[] = $stopwatch->clock();
 
 		// Load plugin text domain
-		add_action( 'init',						array( $this, 'load_theme_textdomain'	) );
-		add_action( 'admin_init',				array( $this, '_admin_init' 			) );
-		//#add_action( 'admin_menu',				array( $this, '_admin_menu' 			) ); 
-		add_action( 'twentyfourteen_credits',	array( $this, '_credits'				) );
-		//#add_action( 'after_setup_theme',		array( $this, '_after_setup_theme' 		) );
-		add_action( 'wp_head',					array( $this, '_wp_head' 				) );
-		//#add_action( 'wp_enqueue_scripts',		array( $this, '_dequeue_fonts' 			), 11 );
-		add_action( 'wp_enqueue_scripts',		array( $this, '_enqueue_scripts' 		) );
-		add_action( 'wp_enqueue_scripts',		array( $this, '_enqueue_styles' 		) );
-		add_filter( 'dynamic_sidebar_params',	array( $this, 'widget_before_after'		) );
-		add_filter( 'the_content',				array( $this, '_the_content' 			), 20 );
-		add_filter( 'get_avatar',				array( $this, '_get_avatar'				) );
+		add_action( 'init',			array( $this, 'load_theme_textdomain'	) );
+		$script[] = $stopwatch->clock();
+		add_action( 'admin_init',		array( $this, '_admin_init' 		) );
+		$script[] = $stopwatch->clock();
+		//#add_action( 'admin_menu',		array( $this, '_admin_menu' 		) ); 
+		$script[] = $stopwatch->clock();
+		add_action( 'twentyfourteen_credits',	array( $this, '_credits'		) );
+		$script[] = $stopwatch->clock();
+		//#add_action( 'after_setup_theme',	array( $this, '_after_setup_theme' 	) );
+		$script[] = $stopwatch->clock();
+		add_action( 'wp_head',			array( $this, '_wp_head' 		) );
+		$script[] = $stopwatch->clock();
+		//#add_action( 'wp_enqueue_scripts',	array( $this, '_dequeue_fonts' 		), 11 );
+		$script[] = $stopwatch->clock();
+		add_action( 'wp_enqueue_scripts',	array( $this, '_enqueue_scripts' 	) );
+		$script[] = $stopwatch->clock();
+		add_action( 'wp_enqueue_scripts',	array( $this, '_enqueue_styles' 	) );
+		$script[] = $stopwatch->clock();
+		add_filter( 'dynamic_sidebar_params',	array( $this, 'widget_before_after'	) );
+		$script[] = $stopwatch->clock();
+		add_filter( 'the_content',		array( $this, '_the_content' 		), 20 );
+		$script[] = $stopwatch->clock();
+		add_filter( 'get_avatar',		array( $this, '_get_avatar'		) );
+		$script[] = $stopwatch->clock();
+		$script['total'] = $stopwatch->elapsed();
+
+//print_r($script);
 
 	}
 
@@ -222,9 +246,8 @@ class CMW2014 {
 	function _enqueue_styles() {
 		$options = get_option( $this->theme_slug . '_options' );
 		$font = (isset($options['gwf_font_body'])) ? $options['gwf_font_body'] : 'none' ;
-		$g_font = 'http://fonts.googleapis.com/css?family='.$font;
 		if ($font != 'none')
-			wp_enqueue_style( 'gwf_'.$font, $g_font, '', '3.0' );
+			wp_enqueue_style( 'gwf_'.$font, 'http://fonts.googleapis.com/css?family='.$font, '', '3.0' );
 	}
 
 
@@ -314,3 +337,24 @@ add_action( 'init', array( 'CMW2014', 'get_instance' ) );
 			$author
 		);
 	}
+
+class StopWatch { 
+    public $total; 
+    public $time; 
+    
+    public function __construct() { 
+        $this->total = $this->time = microtime(true); 
+    } 
+    
+    public function clock() { 
+        return -$this->time + ($this->time = microtime(true)); 
+    } 
+    
+    public function elapsed() { 
+        return microtime(true) - $this->total; 
+    } 
+    
+    public function reset() { 
+        $this->total=$this->time=microtime(true); 
+    } 
+} 
