@@ -70,7 +70,6 @@ class CMW2014 {
 		require( get_stylesheet_directory() . '/inc/subscribe2.php'		);
 		//require( get_stylesheet_directory() . '/inc/web-fonts.php'		);
 
-
 		// Load plugin text domain
 		add_action( 'init',			array( $this, 'load_theme_textdomain'	) );
 		add_action( 'admin_init',		array( $this, '_admin_init' 		) );
@@ -319,6 +318,6 @@ add_action( 'init', array( 'CMW2014', 'get_instance' ) );
 require 'inc/theme-update-checker.php';
 $_update_checker = new ThemeUpdateChecker(
     'color-me-wp-2014',
-    'https://raw.githubusercontent.com/roblandry/color-me-wp-2014/master/info.json'
+    'https://raw.githubusercontent.com/roblandry/color-me-wp-2014/master/inc/info.json'
 );
 
