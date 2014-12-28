@@ -182,7 +182,7 @@ class CMW_IScroll {
 		if( ! is_singular() ) {
 
 			// Infinite Scroll Options JS
-        	$opt = get_option( $this->option_key );
+        		$opt = get_option( $this->option_key );
 			$img		= get_stylesheet_directory_uri().'/images/ajax-loader.gif';
 			$text		= $opt['iscroll_text'];
 			$finished	= $opt['iscroll_finish'];

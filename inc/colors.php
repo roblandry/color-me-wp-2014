@@ -140,7 +140,6 @@ class CMW_Colors {
 			/* TwentyFourten */
 			body,button,input,select,textarea{color:<?php echo $opt['content_text_color']; ?>}
 			body{background:<?php echo $opt['article_bg_color']; ?>}
-			body.custom-background{background:<?php echo $opt['article_bg_color']; ?> !important}
 			a{color: <?php echo $opt['primary_link_color']; ?>}
 			a:active,a:hover{color: <?php echo $opt['primary_link_hover_color']; ?>}
 			ins,mark{background:<?php echo $opt['primary_link_color']; ?>}

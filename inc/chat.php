@@ -85,7 +85,7 @@ class CMW_Chat {
 					$what = strip_tags(trim($string[1]));
 					$row_class_ov = ( $row_class_ov == 'even' )? 'odd' : 'even';
 					$row_class = $row_class_ov . ' speaker-' . $speaker_key;
-					$chatoutput = $chatoutput . "<p class=\"$row_class triangle-obtuse left\"><span class=\"name\">$who:</span><span class=\"text\">$what</span></p>";
+					$chatoutput = $chatoutput . "<p class=\"$row_class triangle-obtuse left\"><span class=\"name\">$who: </span><span class=\"text\">$what</span></p>";
 				} else {
 					// the string didn't contain a needle. Displaying anyway in case theres anything additional you want to add within the transcript
 					$chatoutput = $chatoutput . '<li class="aside-text">' . $haystack . '</li>';
@@ -142,7 +142,8 @@ class CMW_Chat {
 		$theme_dir = dirname( get_bloginfo('stylesheet_url') );
 		//if ( !$tb_chat_load_style ) return;
 
-		wp_enqueue_style( 'chat_css', $theme_dir.'/css/bubbles.css', false, '', 'screen' );
+		wp_enqueue_style( 'chat_css', $theme_dir.'/css/chat.css', false, '', 'screen' );
+		wp_enqueue_style( 'chat_bubbles_css', $theme_dir.'/css/bubbles.css', false, '', 'screen' );
 	}
 
 }

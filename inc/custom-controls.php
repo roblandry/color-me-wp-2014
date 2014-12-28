@@ -88,7 +88,7 @@ class CMW_Custom {
 	 *
 	 * @return void
 	 */
-	public function customize_register( $wp_customize ) {
+	public function _customize_register( $wp_customize ) {
 
 		/**
 		 * Donate Button

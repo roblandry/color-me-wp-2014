@@ -36,12 +36,12 @@ ul.speakers-2 li.speaker-2 {
 	margin-top: 5px;
 	}
 
-.tb-chat .chat-transcript .speaker-1 {background:blue;}
-.tb-chat .chat-transcript .speaker-2 {background:red;}
-.tb-chat .chat-transcript .speaker-3 {background:black;}
-.tb-chat .chat-transcript .speaker-4 {bavkground:green;}
-.tb-chat .chat-transcript .speaker-5 {}
-.tb-chat .chat-transcript .speaker-6 {}
-
+.tb-chat .chat-transcript .speaker-1 {background:red;}
+.tb-chat .chat-transcript .speaker-2 {background:blue;}
+.tb-chat .chat-transcript .speaker-3 {background:orange;}
+.tb-chat .chat-transcript .speaker-4 {background:indigo;}
+.tb-chat .chat-transcript .speaker-5 {background:black;}
+.tb-chat .chat-transcript .speaker-6 {background:violet;}
+.tb-chat .chat-transcript .speaker-7 {background:green;}
 
 
