@@ -315,3 +315,10 @@ add_action( 'init', array( 'CMW2014', 'get_instance' ) );
 		);
 	}
 
+//Initialize the update checker.
+require 'inc/theme-update-checker.php';
+$_update_checker = new ThemeUpdateChecker(
+    'color-me-wp-2014',
+    'https://raw.githubusercontent.com/roblandry/color-me-wp-2014/master/info.json'
+);
+
